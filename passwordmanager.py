@@ -1,7 +1,4 @@
 # password manager
-
-# Input: add new password- gen new password; view all passwords
-
 import os
 
 
@@ -11,6 +8,8 @@ def view_pass():
             for line in file:
                 username, password = line.split(" ")
                 print("username: ", username, " password: ", password, "\n")
+    else:
+        print("Passwords.txt file not found")
     return
 
 
@@ -25,6 +24,7 @@ def add_pass():
 
 
 def create_pass():
+
     return
 
 
@@ -36,7 +36,7 @@ def search(findusername):
                 print(password)
 
 
-main_pass = "123a"
+main_pass = "a"
 
 if input("Enter main password\n"):
     flag = True
@@ -46,7 +46,7 @@ else:
 while flag == True:  # view passwords #add password #create password
 
     case = input(
-        "View all passwords, Add a new password, Create a new password or Search for a password(view,add,create,search)\n")
+        "View all passwords, Add a new password, Create a new password or Search for a password(view,add,create,search and q to quit)\n")
     if case == "view":
         view_pass()
     elif case == "add":
@@ -56,6 +56,8 @@ while flag == True:  # view passwords #add password #create password
     elif case == "search":
         username = input("Enter a username to view its password\n")
         search(username)
-
+    elif case == "q":
+        flag = False
+        break
     else:
         print("Invalid Input, Try Again.\n")
