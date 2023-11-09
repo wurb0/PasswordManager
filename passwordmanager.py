@@ -1,5 +1,7 @@
 # password manager
 import os
+import secrets
+import string
 
 
 def view_pass():
@@ -9,13 +11,11 @@ def view_pass():
                 username, password = line.split(" ")
                 print("username: ", username, " password: ", password, "\n")
     else:
-        print("Passwords.txt file not found")
+        print("Passwords.txt file not found, add a new password first")
     return
 
 
-def add_pass():
-    username = input("Enter new username:\n")
-    newpass = input("Enter new password:\n")
+def add_pass(username, newpass):
 
     with open('passwords.txt', 'a') as file:
         file.write(username+" "+newpass + "\n")
@@ -23,7 +23,28 @@ def add_pass():
     return
 
 
-def create_pass():
+def create_pass(length):
+    exclude = "\n"
+    flag = input(
+        "Are there any characters/symbols to exclude from the generated password? y/n: \n")
+    if (flag == "y"):
+        exclude = input(
+            "Enter characters to exclude from the generated password without separation:\n")
+        exclude = exclude.strip()
+        chars = ''.join(
+            char for char in string.printable if char not in exclude)
+        genpass = ''.join(secrets.choice(chars)for char in range(length))
+        print(genpass)
+    elif (flag == "n"):
+        chars = ''.join(
+            char for char in string.printable if char not in exclude)
+        genpass = ''.join(secrets.choice(chars)for char in range(length))
+        print(genpass)
+
+    # add new password to file
+    if input("Would you like to add this new password? (y/n)\n") == "y":
+        username = input("Enter username:\n")
+        add_pass(username, genpass)
 
     return
 
@@ -38,7 +59,7 @@ def search(findusername):
 
 main_pass = "a"
 
-if input("Enter main password\n"):
+if input("Enter main password\n") == main_pass:
     flag = True
 else:
     flag = False
@@ -50,9 +71,12 @@ while flag == True:  # view passwords #add password #create password
     if case == "view":
         view_pass()
     elif case == "add":
-        add_pass()
+        username = input("Enter new username:\n")
+        newpass = input("Enter new password:\n")
+        add_pass(username, newpass)
     elif case == "create":
-        create_pass
+        length = int(input("How long should the password be?\n"))
+        create_pass(length)
     elif case == "search":
         username = input("Enter a username to view its password\n")
         search(username)
