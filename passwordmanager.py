@@ -24,7 +24,7 @@ def add_pass(username, newpass):
 
 
 def create_pass(length):
-    exclude = "\n"
+    exclude = "\n |`~   "
     flag = input(
         "Are there any characters/symbols to exclude from the generated password? y/n: \n")
     if (flag == "y"):
