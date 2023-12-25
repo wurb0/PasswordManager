@@ -67,7 +67,7 @@ else:
 while flag == True:  # view passwords #add password #create password
 
     case = input(
-        "View all passwords, Add a new password, Create a new password or Search for a password(view,add,create,search and q to quit)\n")
+        "View all passwords, Add a new password, Create a new password or Search for a password (view,add,create,search and q to quit)\n")
     if case == "view":
         view_pass()
     elif case == "add":
